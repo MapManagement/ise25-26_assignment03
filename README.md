@@ -1,4 +1,4 @@
-# CampusCoffee (WS 25/26)
+# CampusCoffee (WS 25/26) Fork
 
 ## Prerequisites
 
