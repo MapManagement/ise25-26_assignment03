@@ -68,3 +68,43 @@ Update title and description:
 ```shell
 curl --header "Content-Type: application/json" --request PUT --data '{"id":4,"name":"New coffee","description":"Great croissants","type":"CAFE","campus":"ALTSTADT","street":"Hauptstraße","houseNumber":"95","postalCode":69117,"city":"Heidelberg"}' http://localhost:8080/api/pos/4 # set correct POS id here and in the body
 ```
+
+### Task 3.2 \(c\)
+
+**Start application:**
+
+Input:
+
+```sh
+docker run -d -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres:17-alpine
+cd application
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+**Add new entry for "Bäckerei Kohlmann":**
+
+Input:
+
+```sh
+curl --header "Content-Type: application/json" --request POST --data '{"name":"Bäckerei Kohlmann GmbH","description":"Bäckerei im Neuenheimer Feld","type":"BAKERY","campus":"INF","street":"Im Neuenheimer Feld","houseNumber":"370","postalCode":69120,"city":"Heidelberg"}' http://localhost:8080/api/pos
+```
+
+Output:
+
+```
+{"id":5,"createdAt":"2025-10-30T15:14:12.744437042","updatedAt":"2025-10-30T15:14:12.744437042","name":"Bäckerei Kohlmann GmbH","description":"Bäckerei im Neuenheimer Feld","type":"BAKERY","campus":"INF","street":"Im Neuenheimer Feld","houseNumber":"370","postalCode":69120,"city":"Heidelberg"}%
+```
+
+**Show all entries:**
+
+Input:
+
+```sh
+curl http://localhost:8080/api/pos
+```
+
+Output:
+
+```
+[{"id":1,"createdAt":"2025-10-30T15:11:57.593019","updatedAt":"2025-10-30T15:11:57.593019","name":"Schmelzpunkt","description":"Great waffles","type":"CAFE","campus":"ALTSTADT","street":"Hauptstraße","houseNumber":"90","postalCode":69117,"city":"Heidelberg"},{"id":2,"createdAt":"2025-10-30T15:11:57.606804","updatedAt":"2025-10-30T15:11:57.606804","name":"Bäcker Görtz ","description":"Walking distance to lecture hall","type":"BAKERY","campus":"INF","street":"Berliner Str.","houseNumber":"43","postalCode":69120,"city":"Heidelberg"},{"id":3,"createdAt":"2025-10-30T15:11:57.610101","updatedAt":"2025-10-30T15:11:57.610101","name":"Café Botanik","description":"Outdoor seating available","type":"CAFETERIA","campus":"INF","street":"Im Neuenheimer Feld","houseNumber":"304","postalCode":69120,"city":"Heidelberg"},{"id":4,"createdAt":"2025-10-30T15:11:57.612731","updatedAt":"2025-10-30T15:11:57.612731","name":"New Vending Machine","description":"Use only in case of emergencies","type":"VENDING_MACHINE","campus":"BERGHEIM","street":"Teststraße","houseNumber":"99a","postalCode":12345,"city":"Other City"},{"id":5,"createdAt":"2025-10-30T15:14:12.744437","updatedAt":"2025-10-30T15:14:12.744437","name":"Bäckerei Kohlmann GmbH","description":"Bäckerei im Neuenheimer Feld","type":"BAKERY","campus":"INF","street":"Im Neuenheimer Feld","houseNumber":"370","postalCode":69120,"city":"Heidelberg"}]%
+```
